@@ -1,0 +1,21 @@
+
+modulesConfig:
+  time:'time'
+  requests
+  os
+  subprocess
+  pyttsx3
+  re
+  sys
+  pyaudio
+  wave
+
+
+userConfig:
+  # The room_id value is used to identify the target chat room
+  room_id: '24978909'
+  # These headers are used to mimic a regular web browser
+  headers: |
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+  # This value is used to fetch chat messages from a specific URL
+  url: 'https://api.live.bilibili.com/xlive/web-room/v1/dM/gethistory'
