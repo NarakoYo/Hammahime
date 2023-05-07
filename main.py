@@ -28,7 +28,7 @@ room_id = user_config.get('room_id')
 print(room_id)
 
 
-# 入口
+# start
 # Define the main function
 def main():
     # Call the BiliSongBot function to start the program
