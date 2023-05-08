@@ -16,17 +16,15 @@ import VoiceBroadcast
 
 config_file = 'Config.yaml'
 config = ConfigurationRead.parse_config_file(config_file)
+user_config = config.get('userConfig')
+room_id = user_config.get('room_id')
 
 print(type(config))
-
-user_config = config.get('userConfig')
-
 print(type(user_config))
-room_id = user_config.get('room_id')
 print(room_id)
 
 
-# start
+# 入口
 # Define the main function
 def main():
     # Call the BiliSongBot function to start the program
