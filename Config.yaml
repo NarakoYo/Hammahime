@@ -1,6 +1,6 @@
 
 modulesConfig:
-  time:'time'
+  time
   requests
   os
   subprocess
@@ -9,6 +9,7 @@ modulesConfig:
   sys
   pyaudio
   wave
+  pygame
 
 
 userConfig:

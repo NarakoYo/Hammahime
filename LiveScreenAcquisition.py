@@ -11,6 +11,7 @@ import wave
 
 import yaml
 
+# 解析yaml文件
 import ConfigurationRead
 config_file = 'Config.yaml'
 config = ConfigurationRead.parse_config_file(config_file)
@@ -30,6 +31,9 @@ def BiliSongBot():
 
     # 直播间ID
     # room_id = '24978909'
+    # user_config = config.get('userConfig')
+    # room_id = user_config.get('room_id')
+    
     # Ask the user to input the room_id
     # If the input is not a valid integer, keep asking the user to input a valid integer
     while True:
