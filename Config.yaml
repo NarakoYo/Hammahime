@@ -11,6 +11,7 @@ modulesConfig:
   wave
   pygame
   PyQt5
+  
 
 
 userConfig:
