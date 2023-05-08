@@ -10,6 +10,7 @@ modulesConfig:
   pyaudio
   wave
   pygame
+  PyQt5
 
 
 userConfig:
