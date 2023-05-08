@@ -22,9 +22,7 @@ print(type(config))
 user_config = config.get('userConfig')
 
 print(type(user_config))
-
 room_id = user_config.get('room_id')
-
 print(room_id)
 
 
