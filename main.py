@@ -32,17 +32,17 @@ def init():
 def main():
     # Call the BiliSongBot function to start the program
  
-    if not os.geteuid()==0:
-        # Display message to user
-        print("需要使用管理员权限，请重新以管理员身份启动。")
-        # Kill related program if the user refuses to use administrator privileges
-        sys.exit(subprocess.call(['python3', 'killProgram.py']))
+    # if not os.getpid()==0:
+    #     # Display message to user
+    #     print("需要使用管理员权限，请重新以管理员身份启动。")
+    #     # Kill related program if the user refuses to use administrator privileges
+    #     sys.exit(subprocess.call(['python3', 'killProgram.py']))
 
     # 初始化
     init()
 
     # 启动主窗口
-    WindowsMain.main()
+    WindowsMain.WindowsMain().main()
     # LiveScreenAcquisition.BiliSongBot()
 
 
