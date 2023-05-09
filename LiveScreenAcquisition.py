@@ -30,7 +30,7 @@ def BiliSongBot():
     url = 'https://api.live.bilibili.com/xlive/web-room/v1/dM/gethistory'
 
     # 直播间ID
-    # room_id = '24978909'
+    # room_id = '958617'
     # user_config = config.get('userConfig')
     # room_id = user_config.get('room_id')
     

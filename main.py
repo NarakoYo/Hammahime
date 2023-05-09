@@ -45,10 +45,11 @@ def main():
 
     # 初始化
     init()
+    # print(init())
 
     # 启动主窗口
     # WindowsMain.WindowsMain().main()
-    # LiveScreenAcquisition.BiliSongBot()
+    LiveScreenAcquisition.BiliSongBot()
 
 
 
