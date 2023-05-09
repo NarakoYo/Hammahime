@@ -44,7 +44,6 @@ def main():
     # 启动主窗口
     WindowsMain.main()
     # LiveScreenAcquisition.BiliSongBot()
-    # print('\n')
 
 
 # Only call the main function if this file is being run directly (not imported as a module)
