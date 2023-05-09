@@ -10,15 +10,20 @@ import sys
 import pyaudio
 import wave
 import yaml
+import locale
 
 # 用户
 import ConfigurationRead
 import LiveScreenAcquisition
 import VoiceBroadcast
 import WindowsMain
+import unit
+
 
 # Create an initialization function
 def init():
+
+    # locale.setlocale(locale.LC_ALL, 'zn_ch.UTF-8')
     # Add initialization code here
     # 解析yaml文件
     config_file = 'Config.yaml'
@@ -42,8 +47,10 @@ def main():
     init()
 
     # 启动主窗口
-    WindowsMain.WindowsMain().main()
+    # WindowsMain.WindowsMain().main()
     # LiveScreenAcquisition.BiliSongBot()
+
+
 
 
 # Only call the main function if this file is being run directly (not imported as a module)
