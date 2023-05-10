@@ -14,9 +14,6 @@ import locale
 
 # 用户
 import ConfigurationRead
-import LiveScreenAcquisition
-import VoiceBroadcast
-import WindowsMain
 import unit
 
 
@@ -45,10 +42,6 @@ def main():
 
     # 初始化
     init()
-
-    # 启动主窗口
-    # WindowsMain.WindowsMain().main()
-    LiveScreenAcquisition.BiliSongBot()
 
 
 
