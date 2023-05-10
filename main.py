@@ -1,15 +1,8 @@
 
 # 系统
 import time
-import requests
 import os
-import subprocess
-import pyttsx3
-import re
 import sys
-import pyaudio
-import wave
-import yaml
 import locale
 
 # 用户
