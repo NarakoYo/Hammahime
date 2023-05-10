@@ -98,4 +98,3 @@ install_requirements()
 check_installed_modules()
 write_requirements_atPresent()
 open_github()
-
