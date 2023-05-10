@@ -13,7 +13,7 @@ import yaml
 import locale
 
 # 用户
-import ConfigurationRead
+import ConfigurationStart
 import unit
 
 
@@ -22,10 +22,8 @@ def init():
 
     # locale.setlocale(locale.LC_ALL, 'zn_ch.UTF-8')
     # Add initialization code here
-    # 解析yaml文件
-    config_file = 'Config.yaml'
-    config = ConfigurationRead.parse_config_file(config_file)
-    return config
+
+    ConfigurationStart().check_venv()
 
     pass
 

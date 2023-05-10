@@ -12,9 +12,7 @@ import wave
 import yaml
 
 # 解析yaml文件
-import ConfigurationRead
-config_file = 'Config.yaml'
-config = ConfigurationRead.parse_config_file(config_file)
+
 
 import VoiceBroadcast
 
