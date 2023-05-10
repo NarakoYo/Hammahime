@@ -15,7 +15,6 @@ def init():
 
     # locale.setlocale(locale.LC_ALL, 'zn_ch.UTF-8')
     # Add initialization code here
-
     ConfigurationSetup()
 
     pass
