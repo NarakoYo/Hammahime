@@ -16,10 +16,6 @@
 # 当用户点击确认，关闭弹窗。
 # 然后打开电脑默认浏览器，前往https://github.com/NarakoYo/Hammahime
 
-
-
-
-
 import os
 import subprocess
 import sys
