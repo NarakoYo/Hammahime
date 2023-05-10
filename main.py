@@ -6,7 +6,7 @@ import sys
 import locale
 
 # 用户
-import ConfigurationStart
+import ConfigurationSetup
 import unit
 
 
@@ -16,7 +16,7 @@ def init():
     # locale.setlocale(locale.LC_ALL, 'zn_ch.UTF-8')
     # Add initialization code here
 
-    ConfigurationStart()
+    ConfigurationSetup()
 
     pass
 

@@ -30,11 +30,11 @@ def check_venv():
     venv_path = os.path.join(os.getcwd(), 'venv')
     if not os.path.exists(venv_path):
         root = tk.Tk()
-        root.geometry('540x171')
+        root.iconbitmap('image/v50.ico')
         root.withdraw()
-        messagebox.showinfo('本地环境异常', '请重新下载压缩包')
+        messagebox.showinfo('本地环境异常', '请前往 https://github.com/NarakoYo/Hammahime 重新下载!')
         root.destroy()
-        os.system('start https://github.com/NarakoYo/Hammahime')
+        # os.system('start https://github.com/NarakoYo/Hammahime')
     else:
         activate_path = os.path.join(venv_path, 'Scripts', 'activate.bat')
         subprocess.call(activate_path, shell=True)
