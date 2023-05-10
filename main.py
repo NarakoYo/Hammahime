@@ -42,6 +42,7 @@ def main():
 
     # 初始化
     init()
+    print(init())
 
 
 
