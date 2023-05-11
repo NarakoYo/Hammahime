@@ -17,7 +17,7 @@
 # 然后打开电脑默认浏览器，前往https://github.com/NarakoYo/Hammahime
 
 # 在windows电脑，启动命令行，检测是否存在虚拟环境venv，
-# 如果不存在弹出一个分辨率为540*171的确认窗口，
+# 如果不存在弹出一个确认窗口，
 # 窗口内提示"本地环境异常，请重新下载压缩包"
 
  
@@ -26,36 +26,37 @@ import subprocess
 import tkinter as tk
 from tkinter import messagebox
 
-def check_venv():
-    venv_path = os.path.join(os.getcwd(), 'venv')
-    if not os.path.exists(venv_path):
-        root = tk.Tk()
-        root.iconbitmap('image/v50.ico')
-        root.withdraw()
-        messagebox.showinfo('本地环境异常', '请前往 https://github.com/NarakoYo/Hammahime 重新下载!')
-        root.destroy()
-        # os.system('start https://github.com/NarakoYo/Hammahime')
-    else:
-        activate_path = os.path.join(venv_path, 'Scripts', 'activate.bat')
-        subprocess.call(activate_path, shell=True)
-        subprocess.call('pip install -r requirements.txt', shell=True)
-        subprocess.call('pip freeze > requirements_atPresent.txt', shell=True)
-        with open('requirements.txt', 'r') as f:
-            requirements = f.readlines()
-        for requirement in requirements:
-            requirement = requirement.strip()
-            if requirement:
-                name, version = requirement.split('==')
-                try:
-                    module = __import__(name)
-                    if module.__version__ != version:
+class ConfigurationSetup:
+    def check_venv(self):
+        venv_path = os.path.join(os.getcwd(), 'venv')
+        if not os.path.exists(venv_path):
+            root = tk.Tk()
+            root.iconbitmap('image/v50.ico')
+            root.withdraw()
+            messagebox.showinfo('本地环境异常', '请前往 https://github.com/NarakoYo/Hammahime 重新下载!')
+            root.destroy()
+            os.system('start https://github.com/NarakoYo/Hammahime')
+        else:
+            subprocess.call('python -m pip install --upgrade pip', shell=True)
+            subprocess.call('python -m pip install --upgrade setuptools', shell=True)
+            subprocess.call('python -m pip install --upgrade wheel', shell=True)
+            subprocess.call('python -m pip install --upgrade --force-reinstall -r requirements.txt', shell=True)
+            subprocess.call('python -m pip freeze > requirements_atPresent.txt', shell=True)
+            with open('requirements.txt', 'r') as f:
+                requirements = f.readlines()
+            for requirement in requirements:
+                requirement = requirement.strip()
+                if requirement:
+                    name, version = requirement.split('==')
+                    try:
+                        module = __import__(name)
+                        if module.__version__ != version:
+                            subprocess.call(f'pip install {name}=={version}', shell=True)
+                    except ImportError:
                         subprocess.call(f'pip install {name}=={version}', shell=True)
-                except ImportError:
-                    subprocess.call(f'pip install {name}=={version}', shell=True)
-        root = tk.Tk()
-        root.geometry('540x171')
-        root.withdraw()
-        messagebox.showinfo('本地环境正常', '环境已经准备好')
-        root.destroy()
+            root = tk.Tk()
+            root.geometry('540x171')
+            root.withdraw()
+            messagebox.showinfo('本地环境正常', '环境已经准备好')
+            root.destroy()
 
-check_venv()

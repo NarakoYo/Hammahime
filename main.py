@@ -6,16 +6,15 @@ import sys
 import locale
 
 # 用户
-import ConfigurationSetup
-import unit
-
+from ConfigurationSetup import ConfigurationSetup
 
 # Create an initialization function
 def init():
 
     # locale.setlocale(locale.LC_ALL, 'zn_ch.UTF-8')
     # Add initialization code here
-    ConfigurationSetup()
+    config = ConfigurationSetup()
+    config.check_venv()
 
     pass
 
@@ -25,7 +24,9 @@ def main():
 
     # 初始化
     init()
-
+    # 打印python位置
+    # print(sys.executable)
+    # print(os.path.dirname(sys.executable))
 
 
 # Only call the main function if this file is being run directly (not imported as a module)
