@@ -4,8 +4,10 @@ import time
 import os
 import sys
 import locale
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
 
-from UI.WindowsMain import WindowsMain
+
+from UI.WindowsMain import StartApp
 
 # Create an initialization function
 def init():
@@ -26,10 +28,11 @@ def main():
     # 打印python位置
     # print(sys.executable)
     # print(os.path.dirname(sys.executable))
-    windowsMain = WindowsMain()
-    windowsMain.run()
-
-
+    app = QApplication(sys.argv)
+    start_app = StartApp()
+    sys.exit(app.exec_())
+    
+    
 
 # Only call the main function if this file is being run directly (not imported as a module)
 if __name__ == '__main__':

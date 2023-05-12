@@ -1,4 +1,12 @@
 WindowsMain:
   title: '是弹幕姬吧'
-  icon: 'image\v50.ico'
+  icon: 'image\Hbicon.ico'
+  background: 'image\MainBg.png'
 
+menu:
+  bra_list: 
+    jiesao: "介绍"
+    gongneng: "功能"
+    shezhi: "设置"
+    
+    
