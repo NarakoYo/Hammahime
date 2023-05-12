@@ -28,6 +28,8 @@ def main():
     # 打印python位置
     # print(sys.executable)
     # print(os.path.dirname(sys.executable))
+        
+
     app = QApplication(sys.argv)
     start_app = StartApp()
     sys.exit(app.exec_())

@@ -24,7 +24,7 @@ class StartApp(QMainWindow):
         title = config['WindowsMain']['title']
         # 设置图标
         icon_path = config['WindowsMain']['icon']
-        
+
 
         # 创建主窗口
         app = QApplication(sys.argv)
@@ -36,6 +36,9 @@ class StartApp(QMainWindow):
         icon = QIcon(QPixmap(bg_path))
         # 设置窗口图标
         self.setWindowIcon(icon)
+         
+        # 隐藏窗口最大化按钮
+        self.setWindowFlags(Qt.WindowMinimizeButtonHint | Qt.WindowCloseButtonHint)
 
         # 加载背景图
         bg_label = QLabel(self)
