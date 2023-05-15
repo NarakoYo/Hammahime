@@ -4,9 +4,27 @@ WindowsMain:
   background: 'image\MainBg.png'
 
 menu:
-  bra_list: 
-    jiesao: "介绍"
-    gongneng: "功能"
-    shezhi: "设置"
+  # font:'微软雅黑'
+    # family: 
+    # size: 14
+    # color: '#FFFFFF'
+    # background: '#000000'
+    # hover_color: '#FF0000'
+    # hover_background: '#FFFFFF'
+    # active_color: '#0000FF'
+    # active_background: '#00FF00'
+
+
+  optionList: 
+    0: "介绍"
+    1: "功能"
+    2: "设置"
+    # 3: "test3"
+    # 4: "test4"
+    # 5: "test5"
+    # 6: "test6"
+    # 7: "test7"
+    # 8: "test8"
+    # 9: "test9"
     
     

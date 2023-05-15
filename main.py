@@ -7,6 +7,7 @@ import locale
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
 
 
+
 from UI.WindowsMain import StartApp
 
 # Create an initialization function
