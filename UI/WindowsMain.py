@@ -14,7 +14,14 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QProgressBar
 from PyQt5.QtCore import QThread
 from PyQt5.QtCore import QPropertyAnimation, QAbstractAnimation
+from PyQt5.QtCore import QRect
 
+# 读取配置
+def ReadYaml():
+    with open('UI\\UIConfig.yaml', 'r', encoding='utf-8') as f:
+        config = yaml.load(f, Loader=yaml.FullLoader)
+
+    return config
 
 
 # 菜单栏
@@ -25,12 +32,8 @@ class MenuBar(QLabel):
         self.initUI()
 
     def initUI(self):
-        # 读取UIConfig.yaml文件
-        with open('UI\\UIConfig.yaml', 'r', encoding='utf-8') as f:
-            config = yaml.load(f, Loader=yaml.FullLoader)
-
         # 获取菜单栏的optionList
-        option_list = config['menu']['optionList']
+        option_list = ReadYaml()['menu']['optionList']
 
         # 设置菜单栏的位置和大小
         self.setGeometry(10, 10, self.parent.width() - 20, 64)
@@ -39,7 +42,7 @@ class MenuBar(QLabel):
         self.setStyleSheet("border-radius: 20px;")
 
         # 设置菜单栏的背景颜色
-        self.setStyleSheet("background-color: #FFFFFF;")
+        self.setStyleSheet("background-color: rgba(0, 0, 0, 0.5);")
 
         # 设置菜单栏的边框
         self.setStyleSheet("border: 1px solid rgba(0, 0, 0, 0.5);")
@@ -51,8 +54,8 @@ class MenuBar(QLabel):
             option_label.setGeometry(10 + i * 130, 1, 128, 62)
 
             # 设置选项的圆角
-            option_label.setStyleSheet("border-radius: 16px;")
-
+            option_label.setStyleSheet("border-radius: 20px;")
+            
             # 设置选项的背景颜色
             option_label.setStyleSheet("background-color: rgba(255, 255, 255, 0.1);")
 
@@ -60,7 +63,6 @@ class MenuBar(QLabel):
             option_label.setStyleSheet("border: 1px solid rgba(255, 255, 255, 0.5);")
 
             # 获取选项的文本
-            print(option_list.get(i))
             option_text = option_list[i]
 
             # 创建文本标签
@@ -90,78 +92,7 @@ class MenuBar(QLabel):
             # 设置文本标签的文本
             text_label.setText(option_text)
 
-
-
-        # 设置菜单栏的滑动效果
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.slide)
-        self.timer.start(2500)
-
-    def slide(self):
-        # 获取菜单栏的位置和大小
-        x = self.x()
-        y = self.y()
-        width = self.width()
-        height = self.height()
-
-        # 获取菜单栏的选项
-        option_list = self.findChildren(QLabel)
-
-        # 计算选项的总宽度
-        option_width = len(option_list) * 66 - 1
-
-        # 如果选项的总宽度小于菜单栏的宽度，则不需要滑动
-        if option_width <= width:
-            return
-
-        # 计算滑动的距离
-        dx = width - option_width
-
-        # 创建动画
-        animation = QPropertyAnimation(self, b"geometry")
-        animation.setDuration(1000)
-        animation.setStartValue(QRect(x, y, width, height))
-        animation.setEndValue(QRect(x + dx, y, width, height))
-        animation.start(QAbstractAnimation.DeleteWhenStopped)
-
-    def mousePressEvent(self, event):
-        # 记录鼠标按下的位置
-        self.mouse_press_pos = event.pos()
-
-    def mouseMoveEvent(self, event):
-        # 计算鼠标移动的距离
-        dx = event.pos().x() - self.mouse_press_pos.x()
-
-        # 获取菜单栏的位置和大小
-        x = self.x()
-        y = self.y()
-        width = self.width()
-        height = self.height()
-
-        # 获取菜单栏的选项
-        option_list = self.findChildren(QLabel)
-
-        # 计算选项的总宽度
-        option_width = len(option_list) * 66 - 2
-
-        # 如果选项的总宽度小于菜单栏的宽度，则不需要滑动
-        if option_width <= width:
-            return
-
-        # 计算滑动的距离
-        new_x = x + dx
-        if new_x > 10:
-            new_x = 10
-        if new_x < width - option_width - 10:
-            new_x = width - option_width - 10
-
-        # 移动菜单栏
-        self.setGeometry(new_x, y, width, height)
-
-    def mouseReleaseEvent(self, event):
-        # 清空鼠标按下的位置
-        self.mouse_press_pos = None
-
+        
 
 
 class StartApp(QMainWindow):
@@ -172,16 +103,13 @@ class StartApp(QMainWindow):
     # UI
     def initUI(self):
         pygame.init()
-        # 读取UIConfig.yaml文件
-        with open('UI\\UIConfig.yaml', 'r', encoding='utf-8') as f:
-            config = yaml.load(f, Loader=yaml.FullLoader)
-
+        
         # 获取背景图路径
-        bg_path = config['WindowsMain']['background']
+        bg_path = ReadYaml()['WindowsMain']['background']
         # 获取标题
-        title = config['WindowsMain']['title']
+        title = ReadYaml()['WindowsMain']['title']
         # 设置图标
-        icon_path = config['WindowsMain']['icon']
+        icon_path = ReadYaml()['WindowsMain']['icon']
 
 
         # 创建主窗口
