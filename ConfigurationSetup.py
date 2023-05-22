@@ -23,8 +23,6 @@
  
 import os
 import subprocess
-import tkinter as tk
-from tkinter import messagebox
 
 class ConfigurationSetup:
     def check_venv(self):
@@ -37,26 +35,48 @@ class ConfigurationSetup:
             root.destroy()
             os.system('start https://github.com/NarakoYo/Hammahime')
         else:
+            # 使用pip命令更新pip本身到最新版本
             subprocess.call('python -m pip install --upgrade pip', shell=True)
+            # 使用pip命令更新setuptools模块到最新版本，setuptools是一个用于打包和分发Python项目的工具
             subprocess.call('python -m pip install --upgrade setuptools', shell=True)
+            # 使用pip命令更新wheel模块到最新版本，wheel是一个用于构建和安装Python二进制包的格式和工具
             subprocess.call('python -m pip install --upgrade wheel', shell=True)
+            # 使用pip命令强制重新安装requirements.txt文件中指定的模块和版本，requirements.txt是一个包含项目依赖的文件
             subprocess.call('python -m pip install --upgrade --force-reinstall -r requirements.txt', shell=True)
+            # 使用pip命令生成一个包含当前安装的模块和版本的新文件requirements_atPresent.txt
             subprocess.call('python -m pip freeze > requirements_atPresent.txt', shell=True)
+            # 打开requirements.txt文件，逐行读取内容
             with open('requirements.txt', 'r') as f:
                 requirements = f.readlines()
+                # 遍历每一行
             for requirement in requirements:
+                # 去除空格和换行符
                 requirement = requirement.strip()
+                # 如果不是空行
                 if requirement:
+                    # 以==为分隔符，获取模块的名称和版本
                     name, version = requirement.split('==')
+                    # 尝试导入该模块
                     try:
                         module = __import__(name)
+                         # 如果导入成功，但是版本不匹配
                         if module.__version__ != version:
+                            # 使用pip命令安装指定的版本
                             subprocess.call(f'pip install {name}=={version}', shell=True)
+                            # 如果导入失败，说明该模块没有安装
                     except ImportError:
+                        # 使用pip命令安装指定的版本
                         subprocess.call(f'pip install {name}=={version}', shell=True)
+            # 导入tkinter模块，用于创建图形界面
+            import tkinter as tk
+            from tkinter import messagebox
+            # 创建一个根窗口对象，并设置其大小
             root = tk.Tk()
             root.geometry('540x171')
+            # 隐藏根窗口，只显示消息框
             root.withdraw()
+            # 显示一个消息框，标题为“本地环境正常”，内容为“环境已经准备好”
             messagebox.showinfo('本地环境正常', '环境已经准备好')
+            # 销毁根窗口对象，结束程序
             root.destroy()
 

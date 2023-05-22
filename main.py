@@ -4,10 +4,7 @@ import time
 import os
 import sys
 import locale
-
-
-
-
+import subprocess
 
 
 # Create an initialization function
@@ -15,10 +12,7 @@ def init():
 
     # locale.setlocale(locale.LC_ALL, 'zn_ch.UTF-8')
     # Add initialization code here
-    # config = ConfigurationSetup()
-    # config.check_venv()
-    
-
+    print("start.bat")
     pass
 
 # 入口
