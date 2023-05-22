@@ -4,11 +4,11 @@ import time
 import os
 import sys
 import locale
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
 
 
 
-from UI.WindowsMain import StartApp
+
+
 
 # Create an initialization function
 def init():
@@ -17,6 +17,7 @@ def init():
     # Add initialization code here
     # config = ConfigurationSetup()
     # config.check_venv()
+    
 
     pass
 
@@ -25,12 +26,13 @@ def init():
 def main():
 
     # 初始化
-    # init()
+    init()
     # 打印python位置
     # print(sys.executable)
     # print(os.path.dirname(sys.executable))
-        
 
+    from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
+    from UI.WindowsMain import StartApp
     app = QApplication(sys.argv)
     start_app = StartApp()
     sys.exit(app.exec_())
