@@ -3,18 +3,24 @@ import sys
 import pygame
 import yaml
 import gc
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QComboBox
-from PyQt5.QtWidgets import QApplication, QTreeWidget, QTreeWidgetItem, QLabel, QMainWindow
-from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QProgressBar
-from PyQt5.QtCore import QThread
-from PyQt5.QtCore import QPropertyAnimation, QAbstractAnimation
-from PyQt5.QtCore import QRect
+# from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
+# from PyQt5.QtGui import QPixmap
+# from PyQt5.QtGui import QIcon
+# from PyQt5.QtCore import Qt
+# from PyQt5.QtWidgets import QMessageBox
+# from PyQt5.QtWidgets import QComboBox
+# from PyQt5.QtWidgets import QApplication, QTreeWidget, QTreeWidgetItem, QLabel, QMainWindow
+# from PyQt5.QtCore import QTimer
+# from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QProgressBar
+# from PyQt5.QtCore import QThread
+# from PyQt5.QtCore import QPropertyAnimation, QAbstractAnimation
+# from PyQt5.QtCore import QRect
+from PyQt6.QtWidgets import QLabel, QMainWindow, QApplication, QLabel
+from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtCore import Qt
+import PyQt6.QtCore as QtCore
+
+
 
 # 读取配置
 def ReadYaml():
@@ -24,7 +30,7 @@ def ReadYaml():
     return config
 
 
-# 菜单栏
+# 选项
 class MenuBar(QLabel):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -34,65 +40,48 @@ class MenuBar(QLabel):
     def initUI(self):
         # 获取菜单栏的optionList
         option_list = ReadYaml()['menu']['optionList']
-
         # 设置菜单栏的位置和大小
         self.setGeometry(10, 10, self.parent.width() - 20, 64)
-
         # 设置菜单栏的圆角
         self.setStyleSheet("border-radius: 20px;")
-
         # 设置菜单栏的背景颜色
         self.setStyleSheet("background-color: rgba(0, 0, 0, 0.5);")
-
         # 设置菜单栏的边框
         self.setStyleSheet("border: 1px solid rgba(0, 0, 0, 0.5);")
-
         # 设置菜单栏的选项
         for i, option in enumerate(option_list):
             # 创建选项
             option_label = QLabel(self)
             option_label.setGeometry(10 + i * 130, 1, 128, 62)
-
             # 设置选项的圆角
             option_label.setStyleSheet("border-radius: 20px;")
-            
             # 设置选项的背景颜色
             option_label.setStyleSheet("background-color: rgba(255, 255, 255, 0.1);")
-
             # 设置选项的边框
             option_label.setStyleSheet("border: 1px solid rgba(255, 255, 255, 0.5);")
-
             # 获取选项的文本
             option_text = option_list[i]
-
-            # 创建文本标签
-            text_label = QLabel(option_label)
-            text_label.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
-            text_label.setGeometry(0, 0, option_label.width(), option_label.height())
-
-            # 设置文本标签的字体
-            font = text_label.font()
-            font.setPointSize(16)
-             
-            #联系上下文设置字体颜色为白色粗字，可根据配置选择字体
-            font.setBold(True)
-            text_label.setStyleSheet("color: #FFFFFF;")
-
-            text_label.setFont(font)
-
-            # 计算文本标签的缩放比例
-            text_width = text_label.fontMetrics().boundingRect(option_text).width()
-            text_scale = min(1, option_label.width() / text_width)
-
-            # 根据缩放比例调整文本标签的字体大小
-            font_size = int(font.pointSize() * text_scale)
-            font.setPointSize(font_size)
-            text_label.setFont(font)
-
-            # 设置文本标签的文本
-            text_label.setText(option_text)
-
-        
+            print(option_text)
+            # # 创建文本标签
+            # text_label = QLabel(option_label)
+            # text_label.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
+            # text_label.setGeometry(0, 0, option_label.width(), option_label.height())
+            # # 设置文本标签的字体
+            # font = text_label.font()
+            # font.setPointSize(16)
+            # #联系上下文设置字体颜色为白色粗字，可根据配置选择字体
+            # font.setBold(True)
+            # text_label.setStyleSheet("color: #FFFFFF;")
+            # text_label.setFont(font)
+            # # 计算文本标签的缩放比例
+            # text_width = text_label.fontMetrics().boundingRect(option_text).width()
+            # text_scale = min(1, option_label.width() / text_width)
+            # # 根据缩放比例调整文本标签的字体大小
+            # font_size = int(font.pointSize() * text_scale)
+            # font.setPointSize(font_size)
+            # text_label.setFont(font)
+            # # 设置文本标签的文本
+            # text_label.setText(option_text)
 
 
 class StartApp(QMainWindow):
@@ -122,13 +111,23 @@ class StartApp(QMainWindow):
         icon = QIcon(QPixmap(bg_path))
         # 设置窗口图标
         self.setWindowIcon(icon)
-         
-        # 隐藏窗口最大化按钮
-        self.setWindowFlags(Qt.WindowMinimizeButtonHint | Qt.WindowCloseButtonHint)
+        
+        #禁止最大化按钮
+        self.setWindowFlags(QtCore.Qt.WindowType.WindowMinimizeButtonHint | QtCore.Qt.WindowType.WindowCloseButtonHint)
+        #禁止拉伸窗口大小
+        self.setFixedSize(self.width(), self.height());
+
 
         # 加载背景图
         bg_label = QLabel(self)
-        bg_label.setPixmap(QPixmap(bg_path).scaled(960, 512, Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation))
+        bg_label.setPixmap(
+            QPixmap(bg_path).scaled(
+                960, 
+                512, 
+                QtCore.Qt.WindowType.KeepAspectRatioByExpanding, 
+                Qt.SmoothTransformation
+            )
+        )
         bg_label.setGeometry(0, 0, 960, 512)
 
         # 获取屏幕分辨率
@@ -198,6 +197,4 @@ class StartApp(QMainWindow):
 
         # 关闭程序
         event.accept()
-
-
 

@@ -1,7 +1,7 @@
 WindowsMain:
   title: '是弹幕姬吧'
   icon: 'image\Hbicon.ico'
-  background: 'image\MainBg.png'
+  background: '..\image\MainBg.png'
 
 menu:
   # font:'微软雅黑'

@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource prefix="/">
+    <file>MainBg.png</file>
+    <file>Hbicon.ico</file>
+    <file>v50.ico</file>
+</qresource>
+</RCC>
