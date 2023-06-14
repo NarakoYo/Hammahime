@@ -14,7 +14,7 @@ class MediaFiles {
 
   readFiles() {
     const allowedExtensions = ['.png', '.jpg', '.webp', '.mp4', '.wav'];
-    const folder = 'Video';
+    const folder = '../Video/';
 
     fetch(folder)
       .then(response => response.text())

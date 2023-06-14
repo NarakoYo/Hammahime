@@ -4,3 +4,9 @@ body {
   padding: 0;
 }
 
+/* 设置音乐名称的样式，居中显示，字体大小和颜色 */
+#music-name {
+  text-align: center;
+  font-size: 24px;
+  color: #333333;
+}

@@ -6,11 +6,13 @@
     <link rel="stylesheet" href="index.css">
     <title>wallpapers-Genshin</title>
 </head>
-    <body>
-        <div></div>
-        <!-- <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3A764wSxLY2VU9kx1dnSQN?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe> -->
-    </body>
- 
-<script src="Carousel.js"></script>
-    
+<body>
+   <!-- 创建一个隐藏的audio元素，用来播放音乐 -->
+   <audio id="player" preload="auto"></audio>
+   <!-- 创建一个div元素，用来显示当前播放的音乐名称 -->
+   <div id="music-name"></div>
+   <!-- 引入js文件 -->
+  <script src="Script\MusicPlayer.js"></script>
+</body>
+<!-- <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3A764wSxLY2VU9kx1dnSQN?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe> -->
 </html>
