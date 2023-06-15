@@ -1,12 +1,53 @@
-/* 取消边距 */
-body {
+/* style.css */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* 设置音乐名称的样式，居中显示，字体大小和颜色 */
-#music-name {
+#container {
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
   text-align: center;
-  font-size: 24px;
-  color: #333333;
+}
+
+#title {
+  font-family: Arial, sans-serif;
+  font-size: 36px;
+  color: #333;
+  margin-top: 20px;
+}
+
+#controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#play {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+}
+
+#volume {
+  width: 200px;
+}
+
+#info {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+}
+
+#name {
+  color: #333;
+}
+
+#status {
+  color: #999;
 }

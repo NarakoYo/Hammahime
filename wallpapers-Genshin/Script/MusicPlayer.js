@@ -1,80 +1,89 @@
-// 定义一个全局变量，用于存储音乐列表
-var musicList = [];
+// script.js
+// 获取元素
+const player = document.getElementById("player");
+const play = document.getElementById("play");
+const volume = document.getElementById("volume");
+const name = document.getElementById("name");
+const status = document.getElementById("status");
 
-// 定义一个回调函数，用于处理JSONP请求返回的数据
-function handleData(data) {
-  // 将返回的数据赋值给音乐列表
-  musicList = data;
-  // 调用播放音乐的函数
-  playMusic();
-}
+// 定义变量
+let musicList = []; // 音乐列表
+let currentIndex = -1; // 当前音乐索引
+let isPlaying = false; // 是否正在播放
 
-// 定义一个函数，用于发送JSONP请求
-function sendRequest() {
-  // 创建一个script标签
-  var script = document.createElement("script");
-  // 设置script的src属性为目标URL，注意要加上回调函数的参数
-  script.src = "Music/music.json?callback=handleData";
-  // 将script插入到文档中
-  document.body.appendChild(script);
-}
-
-// 定义一个函数，用于播放音乐
-function playMusic() {
-  // 获取audio元素和player元素
-  var audio = document.getElementById("audio");
-  var player = document.getElementById("player");
-  // 设置一个变量，用于记录当前播放的音乐的索引
-  var index = 0;
-  // 设置audio的src属性为音乐列表中第一个音乐的路径
-  audio.src = "Music/" + musicList[index];
-  // 设置player的内容为音乐列表中第一个音乐的名称
-  player.innerHTML = musicList[index];
-  // 调用audio的play方法，开始播放音乐
-  audio.play();
-  
-  // 监听audio的ended事件，当音乐播放结束时触发
-  audio.addEventListener("ended", function() {
-    // 将当前播放的音乐的索引加一，如果超过音乐列表的长度，则重置为零
-    index++;
-    if (index >= musicList.length) {
-      index = 0;
-    }
-    // 设置audio的src属性为下一个音乐的路径
-    audio.src = "Music/" + musicList[index];
-    // 设置player的内容为下一个音乐的名称
-    player.innerHTML = musicList[index];
-    // 调用audio的play方法，继续播放音乐
-    audio.play();
-    // 设置audio的volume属性为零，表示静音
-    audio.volume = 0;
-    // 设置一个变量，用于记录淡入淡出的时间间隔（毫秒）
-    var interval = 100;
-    // 设置一个变量，用于记录淡入淡出的步长（0到1之间）
-    var step = 0.1;
-    // 定义一个函数，用于实现淡入效果
-    function fadeIn() {
-      // 如果音量小于1，则递增音量，并在一定时间后再次调用自身
-      if (audio.volume < 1) {
-        audio.volume += step;
-        setTimeout(fadeIn, interval);
+// 定义函数
+// 获取音乐列表
+function getMusicList() {
+  fetch("/Music")
+    .then((response) => response.json())
+    .then((data) => {
+      musicList = data; // 赋值给音乐列表
+      if (musicList.length > 0) {
+        // 如果有音乐，加载第一首
+        loadMusic(0);
       }
-    }
-    // 定义一个函数，用于实现淡出效果
-    function fadeOut() {
-      // 如果音量大于0，则递减音量，并在一定时间后再次调用自身
-      if (audio.volume > 0) {
-        audio.volume -= step;
-        setTimeout(fadeOut, interval);
-      } else {
-        // 如果音量等于0，则调用淡入效果的函数
-        fadeIn();
-      }
-    }
-    // 调用淡出效果的函数
-    fadeOut();
-  });
+    })
+    .catch((error) => console.error(error));
 }
 
-// 调用发送请求的函数
-sendRequest();
+// 加载音乐
+function loadMusic(index) {
+  currentIndex = index; // 更新当前索引
+  player.src = musicList[index]; // 设置音乐源
+  name.textContent = musicList[index].split("/").pop(); // 显示音乐名称
+}
+
+// 播放/暂停音乐
+function togglePlay() {
+  if (isPlaying) {
+    // 如果正在播放，暂停音乐
+    player.pause();
+    isPlaying = false; // 更新状态
+    play.textContent = "Play"; // 更新按钮文本
+    status.textContent = "Paused"; // 更新状态文本
+    player.volume = volume.value; // 恢复音量
+    player.style.transition = "none"; // 取消过渡效果
+    player.style.opacity = "1"; // 恢复不透明度
+  } else {
+    // 如果没有播放，播放音乐
+    player.play();
+    isPlaying = true; // 更新状态
+    play.textContent = "Pause"; // 更新按钮文本
+    status.textContent = "Playing"; // 更新状态文本
+  }
+}
+
+// 切换下一首音乐
+function switchMusic() {
+  if (musicList.length > 0) {
+    // 如果有音乐，计算下一首索引
+    let nextIndex = (currentIndex + 1) % musicList.length;
+    loadMusic(nextIndex); // 加载下一首音乐
+    if (isPlaying) {
+      // 如果正在播放，继续播放
+      player.play();
+    }
+  }
+}
+
+// 调整音量
+function changeVolume() {
+  player.volume = volume.value; // 设置音乐音量
+}
+
+// 添加事件监听器
+window.addEventListener("load", getMusicList); // 窗口加载时，获取音乐列表
+play.addEventListener("click", togglePlay); // 点击播放/暂停按钮，切换播放状态
+volume.addEventListener("input", changeVolume); // 拖动音量滑块，调整音量
+player.addEventListener("ended", switchMusic); // 音乐结束时，切换下一首音乐
+
+// 添加淡入淡出效果
+player.addEventListener("play", () => {
+  player.style.transition = "opacity 2s"; // 设置过渡效果
+  player.style.opacity = "1"; // 设置不透明度为1
+});
+
+player.addEventListener("pause", () => {
+  player.style.transition = "opacity 2s"; // 设置过渡效果
+  player.style.opacity = "0"; // 设置不透明度为0
+});
