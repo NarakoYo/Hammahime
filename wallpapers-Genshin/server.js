@@ -4,18 +4,18 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 
-// 读取ApplicationConfig.yaml文件内容，并返回键值关系的json
-function readConfigFile() {
+// 读取ApplicationConfig.yaml文件内容，并返回json格式的参数值，如果没有文件或文件内无内容则提示报错无内容或文件丢失
+async function readConfigFile() {
   return new Promise((resolve, reject) => {
     fs.readFile(path.join(__dirname, "./ApplicationConfig.yaml"), "utf8", (error, data) => {
       if (error) {
         reject(error);
       } else {
         try {
-          const config = yaml.safeLoad(data);
+          const config = JSON.parse(data);
           resolve(config);
         } catch (error) {
-          reject(error);
+          reject(new Error("文件内容格式错误"));
         }
       }
     });
@@ -30,7 +30,8 @@ const app = express();
  
 // 读取ApplicationConfig.yaml文件内容，并返回键值关系的json
 const config = await readConfigFile();
-const port = config.port || 3001; // 如果yaml文件中没有定义端口，则使用默认端口3001
+console.log(config);
+const port = config.port;
 console.log(port)
 
 const musicDir = path.join(__dirname, "./Script/Music"); // 音乐目录
@@ -74,4 +75,13 @@ app.get("/music", async (req, res) => {
 // });
 
 // 启动服务器
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+// app.listen(port, () => console.log(`Server listening on port ${port}`));
+// 判断服务器是否启动
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+  console.log('server open');
+}).on('error', (err) => {
+  console.log('no start');
+  console.log(err);
+});
+

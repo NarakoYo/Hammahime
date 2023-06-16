@@ -1,1 +1,4 @@
-CreateObject("Wscript.Shell").Run ".\node.exe server.js",0,True
+
+Set WshShell = CreateObject("WScript.Shell")
+WshShell.Run ".\node.exe server.js",0,True
+
